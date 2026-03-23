@@ -18,3 +18,33 @@ document.getElementById("calculateBudget").addEventListener("click", function ()
         alert("Error: " + error.message);
     }
 });
+
+
+function calculateBudget(income, expenses, months) {
+    const monthlySavings = income - expenses;
+    const totalProjectedSavings = monthlySavings * months;
+
+    const resultsDiv = document.getElementById("budgetResults");
+    resultsDiv.innerHTML = "";
+
+    const summary = document.createElement("p");
+    summary.innerHTML =
+        "Monthly Income: $" + income.toFixed(2) + "<br>" +
+        "Monthly Expenses: $" + expenses.toFixed(2) + "<br>" +
+        "Monthly Savings: $" + monthlySavings.toFixed(2) + "<br>" +
+        "Total Savings: $" + totalProjectedSavings.toFixed(2);
+    resultsDiv.appendChild(summary);
+
+    if (monthlySavings < 0) {
+        const warning = document.createElement("p");
+        warning.textContent = "stop spending so much $";
+        warning.style.color = "red";
+        resultsDiv.appendChild(warning);
+    }
+
+    for (let i = 1; i <= months; i++) {
+        const monthP = document.createElement("p");
+        monthP.textContent = "Month " + i + ": $" + (monthlySavings * i).toFixed(2);
+        resultsDiv.appendChild(monthP);
+    }
+}
